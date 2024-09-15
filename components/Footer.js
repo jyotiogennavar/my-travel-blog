@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -9,16 +9,7 @@ export default function Footer() {
             <span className="font-bold">Modern Blog</span>
           </Link>
           <p className="text-center text-sm leading-loose md:text-left">
-            Built by{" "}
-            <a
-              href="https://twitter.com/yourusername"
-              target="_blank"
-              rel="noreferrer"
-              className="font-medium underline underline-offset-4"
-            >
-              Your Name
-            </a>
-            . Hosted on{" "}
+            Built with Next.js and Contentful. Hosted on{" "}
             <a
               href="https://vercel.com"
               target="_blank"
@@ -27,19 +18,10 @@ export default function Footer() {
             >
               Vercel
             </a>
-            . The source code is available on{" "}
-            <a
-              href="https://github.com/yourusername/modern-blog"
-              target="_blank"
-              rel="noreferrer"
-              className="font-medium underline underline-offset-4"
-            >
-              GitHub
-            </a>
             .
           </p>
         </div>
       </div>
     </footer>
-  )
+  );
 }

@@ -32,25 +32,14 @@ export async function generateMetadata({ params }) {
   }
 }
 
-export default function BlogPost({ params }) {
-  const [post, setPost] = useState(null)
-  const [relatedPosts, setRelatedPosts] = useState([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const fetchedPost = await getBlogPost(params.slug)
-      const fetchedRelatedPosts = await getBlogPosts(3, fetchedPost.categories[0]?.name)
-      
-      setPost(fetchedPost)
-      setRelatedPosts(fetchedRelatedPosts)
-    }
-    
-    fetchData()
-  }, [params.slug])
+export default async function BlogPost({ params }) {
+  const post = await getBlogPost(params.slug)
 
   if (!post) {
     return <div className="container mx-auto px-4 py-12 text-center text-2xl text-muted-foreground">Post not found</div>
   }
+
+  const relatedPosts = await getBlogPosts(3, post.category?.slug)
 
   return (
     <article className="container mx-auto px-4 py-12 max-w-4xl">
@@ -58,12 +47,14 @@ export default function BlogPost({ params }) {
         <CardHeader className="space-y-4">
           <CardTitle className="text-4xl font-extrabold">{post.title}</CardTitle>
           <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-            <div className="flex items-center">
-              <UserIcon className="mr-2 h-4 w-4" />
-              <Link href={`/authors/${post.author.slug}`} className="hover:text-primary transition-colors duration-200">
-                {post.author.name}
-              </Link>
-            </div>
+            {post.author && (
+              <div className="flex items-center">
+                <UserIcon className="mr-2 h-4 w-4" />
+                <Link href={`/authors/${post.author.slug}`} className="hover:text-primary transition-colors duration-200">
+                  {post.author.name}
+                </Link>
+              </div>
+            )}
             <div className="flex items-center">
               <CalendarIcon className="mr-2 h-4 w-4" />
               <span>{new Date(post.publishedOn).toLocaleDateString()}</span>
@@ -74,20 +65,20 @@ export default function BlogPost({ params }) {
           {post.heroImage && (
             <div className="relative h-[60vh] rounded-lg overflow-hidden">
               <Image 
-                src={post.heroImage} 
-                alt={post.title} 
+                src={post.heroImage}
+                alt={post.title}
                 layout="fill"
                 objectFit="cover"
               />
             </div>
           )}
-          <div className="flex flex-wrap gap-2">
-            {post.categories.map((category, index) => (
-              <Badge key={index} variant="secondary">
-                {category.name}
+          {post.category && (
+            <div className="flex flex-wrap gap-2">
+              <Badge variant="secondary">
+                {post.category.name}
               </Badge>
-            ))}
-          </div>
+            </div>
+          )}
           <div className="prose dark:prose-invert max-w-none">
             {documentToReactComponents(post.content)}
           </div>
@@ -104,31 +95,35 @@ export default function BlogPost({ params }) {
             </div>
           </div>
           <Separator />
-          <div>
-            <h3 className="text-2xl font-semibold mb-4">About the Author</h3>
-            <Card>
-              <CardContent className="flex items-center space-x-4 py-4">
-                {post.author.avatar ? (
-                  <Image
-                    src={post.author.avatar}
-                    alt={post.author.name}
-                    width={80}
-                    height={80}
-                    className="rounded-full"
-                  />
-                ) : (
-                  <div className="w-20 h-20 bg-secondary rounded-full flex items-center justify-center">
-                    <UserIcon className="h-10 w-10" />
-                  </div>
-                )}
-                <div>
-                  <h4 className="font-semibold text-lg">{post.author.name}</h4>
-                  <p className="text-muted-foreground">{post.author.bio}</p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-          <Separator />
+          {post.author && (
+            <>
+              <div>
+                <h3 className="text-2xl font-semibold mb-4">About the Author</h3>
+                <Card>
+                  <CardContent className="flex items-center space-x-4 py-4">
+                    {post.author.avatar ? (
+                      <Image
+                        src={post.author.avatar}
+                        alt={post.author.name}
+                        width={80}
+                        height={80}
+                        className="rounded-full"
+                      />
+                    ) : (
+                      <div className="w-20 h-20 bg-secondary rounded-full flex items-center justify-center">
+                        <UserIcon className="h-10 w-10" />
+                      </div>
+                    )}
+                    <div>
+                      <h4 className="font-semibold text-lg">{post.author.name}</h4>
+                      <p className="text-muted-foreground">{post.author.bio}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+              <Separator />
+            </>
+          )}
           <div>
             <h3 className="text-2xl font-semibold mb-4">Related Posts</h3>
             <div className="grid gap-6 md:grid-cols-3">

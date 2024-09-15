@@ -1,32 +1,32 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
+} from "@/components/ui/dialog";
 
 export default function NewsletterPopup() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsOpen(true)
-    }, 5000)
+      setIsOpen(true);
+    }, 5000);
 
-    return () => clearTimeout(timer)
-  }, [])
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSubscribe = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // Handle subscription logic here
-    setIsOpen(false)
-  }
+    setIsOpen(false);
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -43,5 +43,5 @@ export default function NewsletterPopup() {
         </form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

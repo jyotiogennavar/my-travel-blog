@@ -5,22 +5,18 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Badge } from "@/components/ui/badge"
 import { CalendarIcon, UserIcon } from "lucide-react"
 
-export default function Home() {
-  const [posts, setPosts] = useState([])
+async function fetchPosts() {
+  const posts = await getBlogPosts()
+  return posts
+}
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const fetchedPosts = await getBlogPosts()
-      setPosts(fetchedPosts)
-    }
-    
-    fetchPosts()
-  }, [])
+export default async function Home() {
+  const posts = await fetchPosts()
 
   return (
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-4xl font-extrabold mb-12 text-center">
-        Welcome to Our Modern Blog
+        Welcome to Our Travel Blog. Start Exploring!
       </h1>
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => (
@@ -49,19 +45,21 @@ export default function Home() {
             </Link>
             <CardContent>
               <p className="text-muted-foreground mb-4">{post.excerpt}</p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {post.categories.map((category, index) => (
-                  <Badge key={index} variant="secondary">
-                    {category.name}
+              {post.category && (
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <Badge variant="secondary">
+                    {post.category.name}
                   </Badge>
-                ))}
-              </div>
+                </div>
+              )}
             </CardContent>
             <CardFooter className="mt-auto flex items-center justify-between text-sm text-muted-foreground">
-              <div className="flex items-center space-x-2">
-                <UserIcon className="h-4 w-4" />
-                <span>{post.author.name}</span>
-              </div>
+              {post.author && (
+                <div className="flex items-center space-x-2">
+                  <UserIcon className="h-4 w-4" />
+                  <span>{post.author.name}</span>
+                </div>
+              )}
               <div className="flex items-center space-x-2">
                 <CalendarIcon className="h-4 w-4" />
                 <span>{new Date(post.publishedOn).toLocaleDateString()}</span>

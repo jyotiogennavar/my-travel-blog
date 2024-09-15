@@ -1,17 +1,17 @@
-"use client"
-import Link from 'next/link'
-import Image from 'next/image'
+"use client";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function PostCard({ post }) {
   return (
     <Link href={`/posts/${post.slug}`} className="block">
       <div className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
         {post.featuredImage ? (
-          <Image 
-            src={post.featuredImage.url} 
-            alt={post.title} 
-            width={400} 
-            height={200} 
+          <Image
+            src={post.featuredImage.url}
+            alt={post.title}
+            width={400}
+            height={200}
             className="w-full"
           />
         ) : (
@@ -25,5 +25,5 @@ export default function PostCard({ post }) {
         </div>
       </div>
     </Link>
-  )
+  );
 }
