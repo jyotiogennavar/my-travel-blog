@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { ThumbsUpIcon, ShareIcon, MessageSquareIcon } from "lucide-react"
+import styles from './BlogInteractions.module.css'
 
 export default function BlogInteractions() {
   const [likes, setLikes] = useState(0)
@@ -25,23 +26,23 @@ export default function BlogInteractions() {
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex space-x-4">
-        <Button variant="outline" onClick={handleLike}>
-          <ThumbsUpIcon className="mr-2 h-4 w-4" />
+    <div className={styles.container}>
+      <div className={styles.buttonGroup}>
+        <Button variant="outline" onClick={handleLike} className={styles.button}>
+          <ThumbsUpIcon className={styles.icon} />
           Like ({likes})
         </Button>
-        <Button variant="outline" onClick={handleShare}>
-          <ShareIcon className="mr-2 h-4 w-4" />
+        <Button variant="outline" onClick={handleShare} className={styles.button}>
+          <ShareIcon className={styles.icon} />
           Share
         </Button>
-        <Button variant="outline" onClick={() => setShowComments(!showComments)}>
-          <MessageSquareIcon className="mr-2 h-4 w-4" />
+        <Button variant="outline" onClick={() => setShowComments(!showComments)} className={styles.button}>
+          <MessageSquareIcon className={styles.icon} />
           Comments
         </Button>
       </div>
       {showComments && (
-        <div className="space-y-2">
+        <div className={styles.commentSection}>
           <Textarea
             placeholder="Write a comment..."
             value={comment}

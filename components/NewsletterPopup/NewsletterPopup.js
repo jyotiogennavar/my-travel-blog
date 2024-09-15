@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import styles from './NewsletterPopup.module.css';
 
 export default function NewsletterPopup() {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,15 +30,15 @@ export default function NewsletterPopup() {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent>
+    <Dialog open={isOpen} onOpenChange={setIsOpen} className={styles.wrapper}>
+      <DialogContent className={styles.dialogBox}>
         <DialogHeader>
           <DialogTitle>Subscribe to our newsletter</DialogTitle>
           <DialogDescription>
             Get the latest posts delivered right to your inbox.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubscribe} className="space-y-4">
+        <form onSubmit={handleSubscribe} className={styles.form}>
           <Input type="email" placeholder="Enter your email" required />
           <Button type="submit">Subscribe</Button>
         </form>

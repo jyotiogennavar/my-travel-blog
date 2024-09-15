@@ -6,7 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { CalendarIcon, UserIcon } from "lucide-react"
-import BlogInteractions from '@/components/BlogInteractions'
+import BlogInteractions from '@/components/BlogInteractions/BlogInteractions'
+import styles from './page.module.css'
 
 export async function generateMetadata({ params }) {
   const post = await getBlogPost(params.slug)
@@ -36,34 +37,32 @@ export default async function BlogPost({ params }) {
   const post = await getBlogPost(params.slug)
 
   if (!post) {
-    return <div className="container mx-auto px-4 py-12 text-center text-2xl text-muted-foreground">Post not found</div>
+    return <div className={styles.postNotFound}>Post not found</div>
   }
 
-  const relatedPosts = await getBlogPosts(3, post.category?.slug)
+  const relatedPosts = await getBlogPosts(3)
 
   return (
-    <article className="container mx-auto px-4 py-12 max-w-4xl">
+    <article className={`${styles.container} ${styles.article}`}>
       <Card>
-        <CardHeader className="space-y-4">
-          <CardTitle className="text-4xl font-extrabold">{post.title}</CardTitle>
-          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+        <CardHeader className={styles.header}>
+          <CardTitle className={styles.title}>{post.title}</CardTitle>
+          <div className={styles.metaInfo}>
             {post.author && (
-              <div className="flex items-center">
-                <UserIcon className="mr-2 h-4 w-4" />
-                <Link href={`/authors/${post.author.slug}`} className="hover:text-primary transition-colors duration-200">
-                  {post.author.name}
-                </Link>
+              <div className={styles.authorLink}>
+                <UserIcon className={styles.icon} />
+                <span>{post.author.name}</span>
               </div>
             )}
-            <div className="flex items-center">
-              <CalendarIcon className="mr-2 h-4 w-4" />
+            <div className={styles.authorLink}>
+              <CalendarIcon className={styles.icon} />
               <span>{new Date(post.publishedOn).toLocaleDateString()}</span>
             </div>
           </div>
         </CardHeader>
-        <CardContent className="space-y-8">
+        <CardContent className={styles.content}>
           {post.heroImage && (
-            <div className="relative h-[60vh] rounded-lg overflow-hidden">
+            <div className={styles.heroImage}>
               <Image 
                 src={post.heroImage}
                 alt={post.title}
@@ -72,21 +71,23 @@ export default async function BlogPost({ params }) {
               />
             </div>
           )}
-          {post.category && (
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="secondary">
-                {post.category.name}
-              </Badge>
+          {post.categories && post.categories.length > 0 && (
+            <div className={styles.tags}>
+              {post.categories.map((category, index) => (
+                <Badge key={index} variant="secondary">
+                  {category.name}
+                </Badge>
+              ))}
             </div>
           )}
-          <div className="prose dark:prose-invert max-w-none">
+          <div className={styles.prose}>
             {documentToReactComponents(post.content)}
           </div>
           <BlogInteractions />
           <Separator />
           <div>
-            <h3 className="text-2xl font-semibold mb-4">Tags</h3>
-            <div className="flex flex-wrap gap-2">
+            <h3 className={styles.sectionTitle}>Tags</h3>
+            <div className={styles.tags}>
               {post.tags.map((tag, index) => (
                 <Badge key={index} variant="outline">
                   {tag}
@@ -98,25 +99,25 @@ export default async function BlogPost({ params }) {
           {post.author && (
             <>
               <div>
-                <h3 className="text-2xl font-semibold mb-4">About the Author</h3>
+                <h3 className={styles.sectionTitle}>About the Author</h3>
                 <Card>
-                  <CardContent className="flex items-center space-x-4 py-4">
+                  <CardContent className={styles.authorInfo}>
                     {post.author.avatar ? (
                       <Image
                         src={post.author.avatar}
                         alt={post.author.name}
                         width={80}
                         height={80}
-                        className="rounded-full"
+                        className={styles.authorAvatar}
                       />
                     ) : (
-                      <div className="w-20 h-20 bg-secondary rounded-full flex items-center justify-center">
-                        <UserIcon className="h-10 w-10" />
+                      <div className={styles.authorAvatar}>
+                        <UserIcon className={styles.icon} />
                       </div>
                     )}
                     <div>
-                      <h4 className="font-semibold text-lg">{post.author.name}</h4>
-                      <p className="text-muted-foreground">{post.author.bio}</p>
+                      <h4 className={styles.authorName}>{post.author.name}</h4>
+                      <p className={styles.authorBio}>{post.author.bio}</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -125,16 +126,16 @@ export default async function BlogPost({ params }) {
             </>
           )}
           <div>
-            <h3 className="text-2xl font-semibold mb-4">Related Posts</h3>
-            <div className="grid gap-6 md:grid-cols-3">
+            <h3 className={styles.sectionTitle}>Related Posts</h3>
+            <div className={styles.relatedPosts}>
               {relatedPosts.map((relatedPost) => (
                 <Card key={relatedPost.slug}>
                   <Link href={`/posts/${relatedPost.slug}`}>
                     <CardHeader>
-                      <CardTitle className="text-lg">{relatedPost.title}</CardTitle>
+                      <CardTitle className={styles.relatedPostTitle}>{relatedPost.title}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-sm text-muted-foreground">{relatedPost.excerpt}</p>
+                      <p className={styles.relatedPostExcerpt}>{relatedPost.excerpt}</p>
                     </CardContent>
                   </Link>
                 </Card>

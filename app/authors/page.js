@@ -1,51 +1,41 @@
-import Link from 'next/link'
 import Image from 'next/image'
 import { getAuthors } from '@/lib/contentful'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import styles from './page.module.css'
 
 export default async function AuthorsPage() {
   const authors = await getAuthors()
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <h1 className="text-4xl font-extrabold mb-12 text-center">Our Authors</h1>
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {authors.map((author) => (
-          <Card key={author.slug}>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Our Authors</h1>
+      <div className={styles.grid}>
+        {authors.map((author, index) => (
+          <Card key={index}>
             <CardHeader>
-              <CardTitle className="text-2xl font-bold">
-                <Link href={`/authors/${author.slug}`} className="hover:text-primary transition-colors duration-200">
-                  {author.name}
-                </Link>
+              <CardTitle className={styles.authorName}>
+                {author.name || 'Unknown Author'}
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center space-x-4 mb-4">
+              <div className={styles.authorInfo}>
                 {author.avatar ? (
                   <Image
                     src={author.avatar}
-                    alt={author.name}
+                    alt={author.name || 'Author'}
                     width={80}
                     height={80}
-                    className="rounded-full"
+                    className={styles.avatar}
                   />
                 ) : (
-                  <div className="w-20 h-20 bg-secondary rounded-full flex items-center justify-center">
-                    <span className="text-2xl font-bold">{author.name[0]}</span>
+                  <div className={styles.noAvatar}>
+                    <span className={styles.noAvatarText}>
+                      {author.name ? author.name[0] : '?'}
+                    </span>
                   </div>
                 )}
-                <p className="text-muted-foreground">{author.bio}</p>
+                <p className={styles.bio}>{author.bio || 'No bio available'}</p>
               </div>
-              <h3 className="font-semibold mb-2">Recent Posts:</h3>
-              <ul className="list-disc list-inside">
-                {author.recentPosts.map((post) => (
-                  <li key={post.slug}>
-                    <Link href={`/posts/${post.slug}`} className="hover:text-primary transition-colors duration-200">
-                      {post.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
             </CardContent>
           </Card>
         ))}

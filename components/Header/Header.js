@@ -6,29 +6,30 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Moon, Sun, Search } from "lucide-react";
+import styles from './Header.module.css';
 
 export default function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { theme, setTheme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center">
-        <Link href="/" className="mr-6 flex items-center space-x-2">
-          <span className="hidden font-bold sm:inline-block">Modern Blog</span>
+    <header className={styles.header}>
+      <div className={styles.container}>
+        <Link href="/" className={styles.logo}>
+          <span className={styles.logoText}>Modern Blog</span>
         </Link>
-        <nav className="flex items-center space-x-6 text-sm font-medium">
+        <nav className={styles.nav}>
           <Link href="/">Home</Link>
           <Link href="/authors">Authors</Link>
           <Link href="/categories">Categories</Link>
         </nav>
-        <div className="flex-1" />
-        <div className="flex items-center space-x-2">
+        <div className={styles.spacer} />
+        <div className={styles.actions}>
           {isSearchOpen ? (
             <Input
               type="search"
               placeholder="Search..."
-              className="w-[200px]"
+              className={styles.searchInput}
             />
           ) : (
             <Button
@@ -36,7 +37,7 @@ export default function Header() {
               size="icon"
               onClick={() => setIsSearchOpen(true)}
             >
-              <Search className="h-5 w-5" />
+              <Search className={styles.themeIcon} />
             </Button>
           )}
           <Button
@@ -44,8 +45,8 @@ export default function Header() {
             size="icon"
             onClick={() => setTheme(theme === "light" ? "dark" : "light")}
           >
-            <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-            <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            <Sun className={`${styles.themeIcon} ${styles.sunIcon}`} />
+            <Moon className={`${styles.themeIcon} ${styles.moonIcon}`} />
             <span className="sr-only">Toggle theme</span>
           </Button>
         </div>

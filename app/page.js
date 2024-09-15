@@ -4,64 +4,62 @@ import { getBlogPosts } from '@/lib/contentful'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { CalendarIcon, UserIcon } from "lucide-react"
-
-async function fetchPosts() {
-  const posts = await getBlogPosts()
-  return posts
-}
+import styles from './page.module.css'
 
 export default async function Home() {
-  const posts = await fetchPosts()
+  const posts = await getBlogPosts()
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <h1 className="text-4xl font-extrabold mb-12 text-center">
+    <div className={styles.container}>
+      <h1 className={styles.title}>
         Welcome to Our Travel Blog. Start Exploring!
       </h1>
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className={styles.grid}>
         {posts.map((post) => (
-          <Card key={post.slug} className="flex flex-col">
+          <Card key={post.slug} className={styles.card}>
             <Link href={`/posts/${post.slug}`}>
-              <div className="relative h-48 w-full">
+              <div className={styles.imageContainer}>
                 {post.heroImage ? (
                   <Image 
                     src={post.heroImage} 
                     alt={post.title} 
                     layout="fill"
                     objectFit="cover"
-                    className="rounded-t-lg"
+                    className={styles.image}
                   />
                 ) : (
-                  <div className="w-full h-full bg-gray-200 flex items-center justify-center rounded-t-lg">
-                    <span className="text-gray-400">No image available</span>
+                  <div className={styles.noImage}>
+                    <span className={styles.noImageText}>No image available</span>
                   </div>
                 )}
               </div>
               <CardHeader>
-                <CardTitle className="text-2xl font-bold hover:text-primary transition-colors duration-200">
+                <CardTitle className={styles.cardTitle}>
                   {post.title}
                 </CardTitle>
               </CardHeader>
             </Link>
             <CardContent>
-              <p className="text-muted-foreground mb-4">{post.excerpt}</p>
-              {post.category && (
-                <div className="flex flex-wrap gap-2 mb-4">
-                  <Badge variant="secondary">
-                    {post.category.name}
-                  </Badge>
+              <p className={styles.excerpt}>{post.excerpt}</p>
+              {post.categories && post.categories.length > 0 && (
+                <div className={styles.tags}>
+                  {post.categories.map((category, index) => (
+                    <Badge key={index} variant="secondary">
+                      {category.name}
+                    </Badge>
+                  ))}
                 </div>
               )}
             </CardContent>
-            <CardFooter className="mt-auto flex items-center justify-between text-sm text-muted-foreground">
+            <CardFooter className={styles.cardFooter}>
               {post.author && (
-                <div className="flex items-center space-x-2">
-                  <UserIcon className="h-4 w-4" />
+                <div className={styles.footerItem}>
+                  <UserIcon className={styles.footerIcon} />
                   <span>{post.author.name}</span>
                 </div>
               )}
-              <div className="flex items-center space-x-2">
-                <CalendarIcon className="h-4 w-4" />
+              <div className={styles.footerItem}>
+                <CalendarIcon className={styles.footerIcon} />
                 <span>{new Date(post.publishedOn).toLocaleDateString()}</span>
               </div>
             </CardFooter>
