@@ -20,7 +20,6 @@ export default function Header() {
         </Link>
         <nav className={styles.nav}>
           <Link href="/authors">Authors</Link>
-          <Link href="/categories">Categories</Link>
         </nav>
         <div className={styles.spacer} />
         <div className={styles.actions}>
