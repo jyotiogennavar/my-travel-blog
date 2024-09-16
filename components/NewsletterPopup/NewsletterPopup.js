@@ -32,7 +32,7 @@ export default function NewsletterPopup() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen} className={styles.wrapper}>
       <DialogContent className={styles.dialogBox}>
-        <DialogHeader>
+        <DialogHeader className={styles.dialogHeader}>
           <DialogTitle>Subscribe to our newsletter</DialogTitle>
           <DialogDescription>
             Get the latest posts delivered right to your inbox.

@@ -1,9 +1,28 @@
 .wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin: 0 auto;
 }
 
 .dialogBox {
-  width: 300px;
+  width: 400px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  border: 1px solid #ccc;
+}
+
+.dialogHeader {
+  font-size: 1rem;
+  text-align: center;
+
+}
+
+.dialogHeader h2 {
+  margin-bottom: 10px;
+}
+
+.form {
+  display: flex;
+  gap: 1rem;
 }

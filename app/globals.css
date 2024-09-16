@@ -21,6 +21,10 @@ img, picture, video, canvas {
   max-width: 100%;
 }
 
+p {
+  text-wrap: balance;
+}
+
 input, button, textarea, select {
   font: inherit;
 }
