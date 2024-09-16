@@ -16,10 +16,9 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.container}>
         <Link href="/" className={styles.logo}>
-          <span className={styles.logoText}>Modern Blog</span>
+          <span className={styles.logoText}>Home</span>
         </Link>
         <nav className={styles.nav}>
-          <Link href="/">Home</Link>
           <Link href="/authors">Authors</Link>
           <Link href="/categories">Categories</Link>
         </nav>
@@ -47,7 +46,7 @@ export default function Header() {
           >
             <Sun className={`${styles.themeIcon} ${styles.sunIcon}`} />
             <Moon className={`${styles.themeIcon} ${styles.moonIcon}`} />
-            <span className="sr-only">Toggle theme</span>
+            {/* <span className="sr-only">Toggle theme</span> */}
           </Button>
         </div>
       </div>
