@@ -1,4 +1,7 @@
+@import './variables.css';
+
 /* Reset CSS */
+
 * {
   margin: 0;
   padding: 0;
