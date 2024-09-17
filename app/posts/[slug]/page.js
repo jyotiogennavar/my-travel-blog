@@ -1,19 +1,24 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import { getBlogPost, getBlogPosts } from '@/lib/contentful'
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card/card"
-import { Badge } from "@/components/ui/badge/badge"
-import { Separator } from "@/components/ui/seperator/separator"
-import { CalendarIcon, UserIcon } from "lucide-react"
-import BlogInteractions from '@/components/BlogInteractions/BlogInteractions'
-import styles from './page.module.css'
+import Image from "next/image";
+import Link from "next/link";
+import { getBlogPost, getBlogPosts } from "@/lib/contentful";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card/card";
+import { Badge } from "@/components/ui/badge/badge";
+import { Separator } from "@/components/ui/seperator/separator";
+import { CalendarIcon, UserIcon } from "lucide-react";
+import BlogInteractions from "@/components/BlogInteractions/BlogInteractions";
+import styles from "./page.module.css";
 
 export async function generateMetadata({ params }) {
-  const post = await getBlogPost(params.slug)
+  const post = await getBlogPost(params.slug);
 
   if (!post) {
-    return {}
+    return {};
   }
 
   return {
@@ -25,22 +30,22 @@ export async function generateMetadata({ params }) {
       images: post.heroImage ? [{ url: post.heroImage }] : [],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
       images: post.heroImage ? [post.heroImage] : [],
     },
-  }
+  };
 }
 
 export default async function BlogPost({ params }) {
-  const post = await getBlogPost(params.slug)
+  const post = await getBlogPost(params.slug);
 
   if (!post) {
-    return <div className={styles.postNotFound}>Post not found</div>
+    return <div className={styles.postNotFound}>Post not found</div>;
   }
 
-  const relatedPosts = await getBlogPosts(3)
+  const relatedPosts = await getBlogPosts(3);
 
   return (
     <article className={`${styles.container} ${styles.article}`}>
@@ -63,7 +68,7 @@ export default async function BlogPost({ params }) {
         <CardContent className={styles.content}>
           {post.heroImage && (
             <div className={styles.heroImage}>
-              <Image 
+              <Image
                 src={post.heroImage}
                 alt={post.title}
                 layout="fill"
@@ -74,6 +79,7 @@ export default async function BlogPost({ params }) {
 
           {post.categories && post.categories.length > 0 && (
             <div className={styles.tags}>
+              <h3 className={styles.sectionTitle}>Categories</h3>
               {post.categories.map((category, index) => (
                 <Badge key={index} variant="secondary">
                   {category.name}
@@ -82,22 +88,23 @@ export default async function BlogPost({ params }) {
             </div>
           )}
 
-
           <div className={styles.prose}>
             {documentToReactComponents(post.content)}
           </div>
           <BlogInteractions />
           <Separator />
-          <div>
-            <h3 className={styles.sectionTitle}>Tags</h3>
+
+          {post.tags && post.tags.length > 0 && (
             <div className={styles.tags}>
+              <h3 className={styles.sectionTitle}>Tags</h3>
               {post.tags.map((tag, index) => (
                 <Badge key={index} variant="outline">
                   {tag}
                 </Badge>
               ))}
             </div>
-          </div>
+          )}
+
           <Separator />
           {post.author && (
             <>
@@ -135,10 +142,14 @@ export default async function BlogPost({ params }) {
                 <Card key={relatedPost.slug}>
                   <Link href={`/posts/${relatedPost.slug}`}>
                     <CardHeader>
-                      <CardTitle className={styles.relatedPostTitle}>{relatedPost.title}</CardTitle>
+                      <CardTitle className={styles.relatedPostTitle}>
+                        {relatedPost.title}
+                      </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className={styles.relatedPostExcerpt}>{relatedPost.excerpt}</p>
+                      <p className={styles.relatedPostExcerpt}>
+                        {relatedPost.excerpt}
+                      </p>
                     </CardContent>
                   </Link>
                 </Card>
@@ -148,5 +159,5 @@ export default async function BlogPost({ params }) {
         </CardContent>
       </Card>
     </article>
-  )
+  );
 }

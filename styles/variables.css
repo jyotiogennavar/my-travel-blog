@@ -1,48 +1,16 @@
 :root {
-  /* Existing Variables */
+  /* ==========================================================================
+     Colors
+     ========================================================================== */
+
+  /* Base Colors */
   --primary-color: #3490dc;
   --secondary-color: #ffed4a;
   --background-color: #ffffff;
   --text-color: #333333;
   --muted-color: #718096;
 
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-md: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-
-  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-family-serif: Georgia, Cambria, 'Times New Roman', Times, serif;
-  --font-family-mono: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-
-  --line-height-tight: 1.25;
-  --line-height-normal: 1.5;
-  --line-height-relaxed: 1.75;
-
-  --border-radius-sm: 0.125rem;
-  --border-radius-md: 0.25rem;
-  --border-radius-lg: 0.5rem;
-
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-
-  /* New Variables */
-  --input-border: #d1d5db;
-  --background: var(--background-color);
-  --ring-color: rgba(59, 130, 246, 0.5);
-  --ring-offset-color: #ffffff;
-  --muted-foreground: var(--muted-color);
-  --border-color: #e5e7eb;
-  --card-background: var(--background-color);
-  --card-foreground: var(--text-color);
+  /* Semantic Colors */
   --primary: var(--primary-color);
   --primary-foreground: #ffffff;
   --primary-hover: #2779bd;
@@ -52,7 +20,65 @@
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
   --destructive-hover: #dc2626;
-  --foreground: var(--text-color);
   --accent: #f3f4f6;
   --accent-foreground: var(--text-color);
+
+  /* Component-specific Colors */
+  --background: var(--background-color);
+  --foreground: var(--text-color);
+  --muted-foreground: var(--muted-color);
+  --card-background: var(--background-color);
+  --card-foreground: var(--text-color);
+  --input-border: #d1d5db;
+  --border-color: #e5e7eb;
+
+  /* ==========================================================================
+     Typography
+     ========================================================================== */
+
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+
+  /* Font Families */
+  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-family-serif: Georgia, Cambria, 'Times New Roman', Times, serif;
+  --font-family-mono: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+  /* Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* ==========================================================================
+     Spacing and Layout
+     ========================================================================== */
+
+  /* Spacing Scale */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+
+  /* Border Radius */
+  --border-radius-sm: 0.125rem;
+  --border-radius-md: 0.25rem;
+  --border-radius-lg: 0.5rem;
+
+  /* ==========================================================================
+     Effects
+     ========================================================================== */
+
+  /* Box Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  /* Focus Ring */
+  --ring-color: rgba(59, 130, 246, 0.5);
+  --ring-offset-color: #ffffff;
 }
