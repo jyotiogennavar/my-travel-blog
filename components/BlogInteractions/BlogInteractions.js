@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Textarea } from '@/components/ui/textarea'
+import { Button } from '@/components/ui/button/button'
+import { Textarea } from '@/components/ui/textarea/textarea'
 import { ThumbsUpIcon, ShareIcon, MessageSquareIcon } from "lucide-react"
 import styles from './BlogInteractions.module.css'
 

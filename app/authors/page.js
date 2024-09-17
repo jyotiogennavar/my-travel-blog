@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { getAuthors } from "@/lib/contentful";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card/card";
 import styles from "./page.module.css";
 
 export default async function AuthorsPage() {

@@ -2,9 +2,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { getBlogPost, getBlogPosts } from '@/lib/contentful'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card/card"
+import { Badge } from "@/components/ui/badge/badge"
+import { Separator } from "@/components/ui/seperator/separator"
 import { CalendarIcon, UserIcon } from "lucide-react"
 import BlogInteractions from '@/components/BlogInteractions/BlogInteractions'
 import styles from './page.module.css'
@@ -71,6 +71,7 @@ export default async function BlogPost({ params }) {
               />
             </div>
           )}
+
           {post.categories && post.categories.length > 0 && (
             <div className={styles.tags}>
               {post.categories.map((category, index) => (
@@ -80,6 +81,8 @@ export default async function BlogPost({ params }) {
               ))}
             </div>
           )}
+
+
           <div className={styles.prose}>
             {documentToReactComponents(post.content)}
           </div>

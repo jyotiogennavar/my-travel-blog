@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button/button";
 import { Input } from "@/components/ui/input";
 import {
   Dialog,
@@ -9,7 +9,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialog/dialog";
 import styles from './NewsletterPopup.module.css';
 
 export default function NewsletterPopup() {

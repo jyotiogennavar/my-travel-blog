@@ -1,5 +1,5 @@
 .container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
@@ -11,19 +11,18 @@
 }
 
 .header {
-  text-align: center;
   padding: 2rem 1rem;
 }
 
 .title {
-  font-size: 2.25rem;
+  font-size: 3rem;
   font-weight: 800;
   margin-bottom: 1rem;
 }
 
 .metaInfo {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   gap: 1rem;
   color: var(--muted-foreground);
 }
@@ -57,9 +56,13 @@
 }
 
 .prose {
-  font-size: 1.125rem;
-  line-height: 1.75;
+  margin: 0 auto;
+  max-width: 70ch;
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-normal);
   margin-bottom: 2rem;
+  text-align: justify;
+
 }
 
 .sectionTitle {

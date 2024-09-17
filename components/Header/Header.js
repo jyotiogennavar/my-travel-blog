@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button/button";
+import { Input } from "@/components/ui/input/input";
 import { Moon, Sun, Search } from "lucide-react";
 import styles from './Header.module.css';
 
